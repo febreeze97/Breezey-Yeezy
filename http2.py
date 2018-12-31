@@ -12,7 +12,7 @@ import random
 
 
 #Function for finding our desired item and size on shopify store
-def find_prod_shopify(item, size):
+def find_prod_shopify(site, item, size):
     #Initialise our session
     session = requests.session()
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -20,7 +20,7 @@ def find_prod_shopify(item, size):
     #Take a json from the shopify site containing a list of all products and
     #their variants (size & colourways etc.). This is consisten across all sites
     #that use shopify.
-    url = 'https://bapeonline.com' + '/products.json'
+    url = site + '/products.json'
     r = session.get(url, verify=False)
     products_json = json.loads(r.text)
     products = products_json["products"]
@@ -37,7 +37,7 @@ def find_prod_shopify(item, size):
         if size in variant['title']:
             var = str(variant['id'])
             size_found == 1;
-        else
+        else:
             var_temp = str(variant['id'])
 
     if size_found == 0:
@@ -48,6 +48,6 @@ def find_prod_shopify(item, size):
 
 
 
-find_prod_shopify('SHARK WIDE PULLOVER HOODIE')
+find_prod_shopify('https://bapeonline.com', 'SHARK WIDE PULLOVER HOODIE', "BLACK / M (MEN'S)")
 
 
